@@ -63,10 +63,24 @@ mvn spring-boot:run
 | PUT | `/inventario/productos/{id}/stock` | Actualiza el stock |
 | DELETE | `/inventario/productos/{id}` | Elimina un producto |
 
-## Tests
+## Pruebas y cobertura
+
+Pruebas unitarias con **JUnit 5 + Mockito**. Usan **H2 en memoria** (perfil de test) para
+no depender de PostgreSQL.
 
 ```bash
-mvn test
+mvn test      # ejecuta las pruebas
+mvn verify    # pruebas + reporte de cobertura + validacion del minimo (>=60%)
 ```
 
-Pruebas unitarias en `src/test/java/com/smartlogix/inventario/service/ProductoServiceTest.java`
+- `ProductoServiceTest`: lógica del servicio con mocks del repositorio (7 casos).
+- `MsInventarioApplicationTests`: carga del contexto Spring.
+- `OpenApiExportTest`: genera la especificación Swagger en `api-docs/openapi.json`.
+
+Reporte de cobertura (JaCoCo): `target/site/jacoco/index.html`. La regla `jacoco:check`
+falla el build si la cobertura de líneas baja del 60%. Cobertura actual: **69.8%**.
+
+## API REST (Swagger)
+
+Con el servicio corriendo: UI en `/swagger-ui.html` y especificación JSON en
+`/v3/api-docs` (copia versionada en `api-docs/openapi.json`).
