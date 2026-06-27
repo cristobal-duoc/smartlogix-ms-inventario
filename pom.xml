@@ -57,13 +57,14 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- H2: base de datos en memoria solo para pruebas.
-             Permite que los tests (incluido @SpringBootTest contextLoads y @DataJpaTest)
-             se ejecuten de forma hermetica en local y en CI sin depender de PostgreSQL. -->
+        <!-- H2: base de datos en memoria.
+             Se usa en los tests (hermeticos, sin PostgreSQL) y tambien permite levantar
+             el microservicio sin Docker ni PostgreSQL con el perfil "demo"
+             (application-demo.properties). Por eso el scope es runtime y no test. -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <scope>test</scope>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 
